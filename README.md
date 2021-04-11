@@ -2,3 +2,7 @@
 
 Link to input data.
 Google drive - https://drive.google.com/drive/folders/1YOsPhKZABWf83Cu4n12oZVdnTZkHCMfs?usp=sharing
+
+References:
+Parallelization: Conway’s Game of Life By Aaron	Weeden,	Shodor Education Foundation, Inc
+http://www.shodor.org/media/content/petascale/materials/UPModules/GameOfLife/Life_Module_Document_pdf.pdf
