@@ -1,5 +1,23 @@
 import numpy as np
-import datetime
+import time
+import sys
+
+COLS = ROWS = int(sys.argv[1])
+generations = int(sys.argv[2])
+ratio_negative = float(sys.argv[3])
+
+workspace_shape = (ROWS,COLS)
+iteration_size = generations
+with open(f'input_data/ratio_[{ratio_negative}, {1-ratio_negative}]___size_{ROWS}x{COLS}.txt', 'rb') as file:
+        workspace =[int(_) for _ in list(file.read())]  
+def timing(f):
+    def wrap(*args, **kwargs):
+        time1 = time.time()
+        ret = f(*args, **kwargs)
+        time2 = time.time()
+        print('{:s} function took {:.3f} ms'.format(f.__name__, (time2-time1)*1000.0))
+        return ret
+    return wrap
 
 class Game(object):
     def __init__(self, shape, workspace, dtype=np.int8):
@@ -12,7 +30,6 @@ class Game(object):
         while no_iter != self.step:
             self._engine.next_state()
             self.step += 1
-
 class Engine(object):
     def __init__(self, workspace, dtype=np.int8):
         self._workspace = workspace
@@ -49,17 +66,8 @@ class Engine(object):
     def next_state(self):
         self._count_neighbors()
         self._update_workspace()
-
-workspace_shape = (1000,1000)
-iteration_size = 10000
-
-with open("input_data/ratio_[0.5, 0.5]___size_1000x1000.txt","r") as file:
-    workspace = [int(_) for _ in list(file.read())]
-
-t0=datetime.datetime.now()
-game = Game(workspace_shape, workspace)
-game.animate(iteration_size)
-t1=datetime.datetime.now()
-t2=t1-t0
-print(t2.microseconds/ 1000)
-
+@timing
+def main():
+    game = Game(workspace_shape, workspace)
+    game.animate(iteration_size)
+main()
