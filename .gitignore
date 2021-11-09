@@ -1,4 +1,9 @@
-*.txt
-cython*
-.vscode
-*.jpg
+input_data
+output_data
+temp
+
+.*
+__*
+
+ny*
+*old
